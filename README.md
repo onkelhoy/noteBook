@@ -6,9 +6,6 @@ There is a admin page to that controls the teachers.
 For the student: 
 When logged in they will goto writing page if they only have one session on them (task), if more they will go to session list were they can pick one. The countdown will always be displayed and the word count. It's autosave. 
 When a session is done they will be able to see their work and see the teacher comment (they recive an email when session is open and when techer comments)
-## Installation
-install nodes (npm install)
-run the app (node app)
 ## History
 2016-02-26 - work in process
 ## Credits
