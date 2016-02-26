@@ -1,0 +1,45 @@
+<html>
+<head>
+	<% include partials/ejs/head.ejs %>
+	<link rel="stylesheet" href="css/teacher.css">
+	<link rel="stylesheet" href="css/popup.css">
+	<link rel="stylesheet" href="css/basic.css">
+	<% if(status == 'create') { %>
+		<link rel="stylesheet" href="css/tags.css">
+		<link rel="stylesheet" href="css/datepicker.css">
+
+		<script src="js/tags/tags_bootstrap.min.js"></script>
+		<script src="js/tags/tags_angular.min.js"></script>
+		<script src="js/calender/moment.js"></script>
+		<script src="js/calender/sv.js" charset="UTF-8"></script>
+		<script src="js/calender/datepicker.js"></script>
+		<script src="js/teacher/search.js"></script>
+		<script src="js/teacher/create.js"></script>
+		<script src="js/filter.js"></script>
+	<% } %>
+</head>
+<body class="<%= status %>">
+	<% include partials/html/logout.html %>
+	<% if(status == 'home') { %>
+		<% include partials/teacher/home.html %>
+		<script src="js/teacher/home.js"></script>
+	<% } %>
+	<% if(status == 'class') { %>
+		<% include partials/teacher/class.html %>
+		<script src="js/teacher/class.js"></script>
+	<% } %>
+	<% if(status == 'create') { %>
+		<% include partials/teacher/create.html %>
+	<% } %>
+	<% if(status == 'session') { %>
+		<% include partials/teacher/session.html %>
+	<% } %>
+	
+	<script>
+		var ID = '<%= id %>';
+		var CLASSES = null;
+	</script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="js/popup.js"></script>
+</body>
+</html>

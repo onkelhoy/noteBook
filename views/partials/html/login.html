@@ -1,0 +1,19 @@
+<div class="container">
+	<form class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2" method='post' onkeypress="enterpress(event)">
+		<div class="form-group">
+			<label for="username">Namn</label>
+			<input type="text" class="form-control" id="username" placeholder="skriv in ditt namn">
+		</div>
+		<div class="form-group">
+			<label for="password">Lösenord</label>
+			<input type="password" class="form-control" id="password" placeholder="skriv in ditt lösenord">
+		</div>
+		<div class="form-group">
+			<span id="error"></span>
+		</div>
+		<button type="button" onclick="login()" class="btn btn-default">Login</button>
+	</form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/login.js"></script>

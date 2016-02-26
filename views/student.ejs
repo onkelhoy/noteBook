@@ -1,0 +1,15 @@
+<html>
+<head>
+	<% include partials/ejs/head.ejs %>
+	<link rel="stylesheet" href="css/student.css">
+	<link rel="stylesheet" href="css/basic.css">
+</head>
+<body class="<%= status %>">
+	<% include partials/html/logout.html %>
+	<% if(status == 'home') { %>
+		<% include partials/student/home.html %>
+	<% } %>
+	
+	<script src="/socket.io/socket.io.js"></script>
+</body>
+</html>

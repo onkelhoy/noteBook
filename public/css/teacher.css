@@ -1,0 +1,126 @@
+.container {
+	margin-top: 30px;
+}
+
+/* HOME */
+.home > div > div > a {
+	width: 100%;
+}
+.home > div > div > select {
+	width: 100%;
+}
+/* END HOME */
+
+/* CLASS */
+.class > .container > .row > div {
+	/*min-width: 800px;*/
+}
+.class > .container > .row > div > header:hover {
+	background-color: #F3F3F3;
+	box-shadow: 0 0 3px #999;
+}
+.class > .container > .row > div > header {
+	height: 40px;
+	width: 98%;
+	margin: auto;
+	line-height: 40px;
+	position: relative;
+	margin-top: 15px;
+	border-radius: 6px;
+	cursor: pointer;
+	box-shadow: 0 0 3px #bbb;
+}
+.class > .container > .row > div > header > span {
+	width: calc((100% - 70px)/3);
+	float: left;
+	display: block;
+	padding-left: 15px;
+    box-sizing: border-box;
+}
+.class > .container > .row > div > header > button {
+	min-width: 70px;
+	height: 100%;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.class > .container > .row > div > div {/*body*/
+	width: 95%;
+	margin: auto;
+	display: none;
+}
+.class > .container > .row > div > div > ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	/*cursor: pointer;*/
+}
+.class > .container > .row > div > div > ul > li {
+	position: relative;
+	background-color: #fdfdfd;
+	border-top: 1px solid #888;
+	box-sizing: border-box;
+}
+.class > .container > .row > div > div > ul > li:hover {
+	background-color: #efefef;
+}
+.class > .container > .row > div > div > ul > li > button {
+	border-radius: 0;
+	width: 60px;
+}
+.class > .container > .row > div > div > ul > li > span {
+	width: calc((100% - 150px) / 3);
+	display: inline-block;
+	padding-left: 4%;
+	box-sizing: border-box;
+}
+.class > .container > .row > div > div > ul > li > a {
+	width: calc((100% - 150px) / 5);
+	display: inline-block;
+}
+.class > .container > .row > div > div > ul > li > span + a + span {
+	/*display: inline;*/
+}
+.class > .container > .row > div > div > ul > li > span + button {
+	position: absolute;
+	width: 80px;
+	right: 0;
+	top: 0;
+}
+.class > .container > .row > div > div > footer {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	width: 100%;
+}
+
+/* END CLASS */
+
+
+/* CREATE */
+
+.create .input-group-addon {
+	cursor: pointer;
+}
+.create #classes {
+	list-style: none;
+	padding: 0;
+}
+.create #classes > li {
+	width: 95%;
+	margin: auto;
+	padding: 5px 15px;
+	border-bottom: 1px solid #999;
+	border-right: 1px solid #999;
+	border-left: 1px solid #999;
+}
+.create #classes > li:hover {
+	background-color: #F3F3F3;
+}
+.create #classes > li:last-child {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+/* END CREATE */

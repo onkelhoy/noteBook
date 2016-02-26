@@ -1,0 +1,17 @@
+<html>
+<head>
+	<% include partials/ejs/head.ejs %>
+	<link rel="stylesheet" href="css/basic.css">
+</head>
+<body>
+	<% if(type != 'login') { %>
+		<% include partials/html/logout.html %>
+	<% } %>
+	<% if(type == 'login') { %>
+		<% include partials/html/login.html %>
+	<% } %>
+	<% if(type == 'bad') { %>
+		<% include partials/html/bad.html %>
+	<% } %>
+</body>
+</html>

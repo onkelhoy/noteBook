@@ -1,0 +1,74 @@
+<html>
+<head>
+	<% include partials/ejs/head.ejs %>
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/popup.css">
+</head>
+<body class="<%= status %>">
+	<h1><i class="fa fa-cogs"></i> Admin Sida</h1>
+	<div clasS="container">
+		<div class="row col-md-10 col-md-offset-1">
+			<div class="input-group">
+				<h3>Lärare</h3>
+				<ul>
+					<% if(teachers != 'error') { %>
+						<% for(var i = 0; i < teachers.length; i++) { %>
+							<li index=<%= teachers[i].id %>>
+								<button type="button" class="btn">Edit</button>
+								<span class="name"><%= teachers[i].name %></span>
+								<span class="pass"><a href="javascript:void(0)" class="btn btn-link" pass="<%= teachers[i].password %>">Klicka för lösenord</a></span>
+								<a href="mailto:<%= teachers[i].mail %>?Subject=texbook%20-%20admin" class="name"><%= teachers[i].mail %></a>
+								<button type="button" class="btn">Remove</button>
+							</li>
+						<% } %>
+					<% } else { %>
+						<li>Cant get Teachers</li>
+					<% } %>
+				</ul>
+				<button type="button" class="btn btn-success" onclick="showPopup(3)">Lägg till lärare</button>
+			</div>
+		</div>
+	</div>
+	<div id="popup">
+	    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
+	        <button type="button" onclick="hidePop()" class="close" aria-label="Close"><i class="fa fa-times"></i></button>
+	        <div><!-- errorMenu -->
+	            <p class="bg-danger"></p>
+	            <button class="btn btn-danger" onclick="hidePop()">Okay <i class="fa fa-frown-o"></i></button>
+	        </div>
+	        <div><!-- succesMenu -->
+	            <p class="bg-success"></p>
+	            <button class="btn btn-success" onclick="hidePop()">Okay <i class="fa fa-smile-o"></i></button>
+	        </div>
+	        <div><!-- addMenu -->
+	        	<div class="form-group">
+	        		<label for="add_name">Namn</label>
+	        		<input id="add_name" class="form-control" type="text" placeholder="Henry Pap">
+	        	</div>
+	        	<div class="form-group">
+	        		<label for="add_mail">Namn</label>
+	        		<input id="add_mail" class="form-control" type="text" placeholder="henry@example.com">
+	        	</div>
+	        	<button type="button" class="btn btn-default" onclick="addTeacher()">Lägg till</button>
+	        </div>
+	        <div><!-- editMenu -->
+	        	<div class="form-group">
+	        		<label for="add_name">Namn</label>
+	        		<input id="add_name" class="form-control" type="text" placeholder="Henry Pap">
+	        	</div>
+	        	<div class="form-group">
+	        		<label for="add_mail">Namn</label>
+	        		<input id="add_mail" class="form-control" type="text" placeholder="henry@example.com">
+	        	</div>
+	        	<button type="button" class="btn btn-default" onclick="addTeacher()">Lägg till</button>
+	        </div>
+	        <div id="confirm"><!-- confirmMenu -->
+	        	<p class="bg-warning">Vill du verkligen ta bort lärare <span></span></p>
+	        	<button type="button" class="btn btn-default" onclick="confirm()">Bekräfta</button>
+	        </div>
+	    </div>
+	</div>
+	<script src="js/admin/admin.js"></script>
+	<script src="js/popup.js"></script>
+</body>
+</html>
