@@ -10,7 +10,7 @@ When a session is done they will be able to see their work and see the teacher c
 install nodes (npm install)
 run the app (node app)
 ## History
-TODO: Write history
+2016-02-26 - work in process
 ## Credits
 ckeditor - http://ckeditor.com/
 ## License
