@@ -1,0 +1,65 @@
+header { /*add big form-control class instead!*/
+	background-color: #1D5A8F;
+	margin-top: 50px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+header > h3 {
+	color: white;
+}
+ul {
+	list-style: none;
+	padding-left: 0;
+	width: 98%;
+	margin: auto;
+}
+ul > li {
+	height: 35px;
+	line-height: 35px;
+	cursor: pointer;
+	border-top: 1px solid #555;
+	border-left: 1px solid #555;
+	border-right: 1px solid #555;
+	padding-left: 20px;
+	position: relative;
+}
+ul > li > span + span {
+	position: absolute;
+	right: 20px;
+	/*display: inline-block;*/
+	/*width: 20%;*/
+	/*position: relative;*/
+}
+ul > li > i {
+	margin-right: 8px;
+}
+.text-red {
+	color: #d9534f;
+}
+.text-yellow {
+	color: #F0AD4E;
+}
+.text-green {
+	color: #5cb85c;
+}
+.text-blue {
+	color: #337AB7;
+}
+ul > li > span > span {
+	/*position: absolute;*/
+	/*right: 20px;
+	text-align: right;
+	display: inline-block;
+	width: 100%;*/
+}
+ul > li:last-child {
+	border-bottom: 1px solid #555;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+ul > li:first-child {
+	border-top: none;
+}
+ul > li:hover {
+	background-color: #D2DCFC;
+}

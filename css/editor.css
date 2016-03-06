@@ -1,0 +1,12 @@
+#info {
+	position: absolute;
+	right: 30px;
+	top: 20px;
+}
+#info > span{
+	padding: 8px;
+}
+.save {
+	display: inline-block;
+	width: 10px;
+}

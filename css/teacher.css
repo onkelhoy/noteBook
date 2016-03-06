@@ -1,0 +1,312 @@
+.container {
+	margin-top: 30px;
+}
+
+/* HOME */
+.home > div > div {
+	margin-top: 50px;
+	min-width: 300px;
+}
+.home > div > div > div > a {
+	text-decoration: none;
+}
+.home > div > div > div > a:hover {
+	background-color: #e7e7e7;
+}
+.home > div > div > div > header:hover {
+	background-color: #e7e7e7;
+	cursor: pointer;
+}
+.home > div > div > div {
+	margin: 20px 0 0 0;
+	text-align: center;
+}
+.home > div > div > ul {
+	list-style: none;
+	padding-left: 0;
+	display: none;
+	width: 98%;
+	margin: auto;
+}
+.home > div > div > ul > li {
+	height: 35px;
+	line-height: 35px;
+	cursor: pointer;
+	border-top: 1px solid #555;
+	border-left: 1px solid #555;
+	border-right: 1px solid #555;
+	padding-left: 20px;
+	position: relative;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.home > div > div > ul > li > span:first-of-type {
+	display: inline-block;
+	width: 25%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.home > div > div > ul > li > span + span {
+	position: absolute;
+	right: 20px;
+	display: inline-block;
+	width: 50%;
+}
+.home > div > div > ul > li > span > i {
+	margin-right: 8px;
+}
+.text-red {
+	color: #d9534f;
+}
+.text-yellow {
+	color: #F0AD4E;
+}
+.text-blue {
+	color: #337AB7;
+}
+.text-green {
+	color: #5cb85c;
+}
+.home > div > div > ul > li > span > span {
+	/*position: absolute;*/
+	/*left: 0;*/
+	/*text-align: left;*/
+	display: inline-block;
+	width: 50%;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.home > div > div > ul > li > span > span + span {
+	text-align: right;
+}
+.home > div > div > ul > li:last-child {
+	border-bottom: 1px solid #555;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+.home > div > div > ul > li:first-child {
+	border-top: none;
+}
+.home > div > div > ul > li:hover {
+	background-color: #D2DCFC;
+}
+/* END HOME */
+
+/* CLASS */
+.class > .container > .row > div {
+	/*min-width: 800px;*/
+}
+.class > .container > .row > div > header:hover {
+	background-color: #F3F3F3;
+	box-shadow: 0 0 3px #999;
+}
+.class > .container > .row > div > header {
+	height: 40px;
+	width: 98%;
+	margin: auto;
+	line-height: 40px;
+	position: relative;
+	margin-top: 15px;
+	border-radius: 6px;
+	cursor: pointer;
+	box-shadow: 0 0 3px #bbb;
+}
+.class > .container > .row > div > header > span {
+	width: calc((100% - 70px)/3);
+	float: left;
+	display: block;
+	padding-left: 15px;
+    box-sizing: border-box;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.class > .container > .row > div > header > button {
+	min-width: 70px;
+	height: 100%;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.class > .container > .row > div > div {/*body*/
+	width: 95%;
+	margin: auto;
+	display: none;
+}
+.class > .container > .row > div > div > ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	/*cursor: pointer;*/
+}
+.class > .container > .row > div > div > ul > li {
+	position: relative;
+	background-color: #fdfdfd;
+	border-top: 1px solid #888;
+	box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.class > .container > .row > div > div > ul > li:hover {
+	background-color: #efefef;
+}
+.class > .container > .row > div > div > ul > li > button {
+	border-radius: 0;
+	width: 60px;
+}
+.class > .container > .row > div > div > ul > li > span {
+	width: calc((100% - 150px) / 3);
+	display: inline-block;
+	padding-left: 4%;
+	box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.class > .container > .row > div > div > ul > li > a {
+	width: calc((100% - 150px) / 5);
+	display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.class > .container > .row > div > div > ul > li > span + a + span {
+	/*display: inline;*/
+}
+.class > .container > .row > div > div > ul > li > span + button {
+	position: absolute;
+	width: 80px;
+	right: 0;
+	top: 0;
+}
+.class > .container > .row > div > div > footer {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	width: 100%;
+}
+
+/* END CLASS */
+
+
+/* CREATE */
+.create textarea {
+	min-height: 180px;
+}
+.create .input-group-addon {
+	cursor: pointer;
+}
+.create #classes {
+	list-style: none;
+	padding: 0;
+}
+.create #classes > li {
+	width: 95%;
+	margin: auto;
+	padding: 5px 15px;
+	border-bottom: 1px solid #999;
+	border-right: 1px solid #999;
+	border-left: 1px solid #999;
+}
+.create #classes > li:hover {
+	background-color: #F3F3F3;
+}
+.create #classes > li:last-child {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+/* END CREATE */
+
+
+
+/* SESSION */
+.session > .container > div > div > div.clas {
+	margin: 5px 0;
+}
+.session > .container > div > div > div > header {
+	cursor: pointer;
+	background-color: #1D5A8F;
+	color: white;
+}
+.session > .container > div > div > div > ul {
+	list-style: none;
+	margin: auto;
+	padding-left: 0;
+	width: 98%;
+	display: none;
+	/*cursor: pointer;*/
+}
+.session > .container > div > div > div > ul > li {
+	height: 35px;
+	line-height: 35px;
+	cursor: pointer;
+	border-top: 1px solid #555;
+	border-left: 1px solid #555;
+	border-right: 1px solid #555;
+	padding-left: 20px;
+	position: relative;
+}
+.session > .container > div > div > div > ul > li:last-child {
+	border-bottom: 1px solid #555;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+.session > .container > div > div > div > ul > li:first-child {
+	border-top: none;
+}
+.session > .container > div > div > div > ul > li:hover {
+	background-color: #efefef;
+}
+.session > .container > div > div > div > ul > li > span > i {
+	margin: 0 10px;
+	color: #333333;
+}
+.session > .container > div > div > div > ul > li > span + span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.session > .container > div > div > div > ul > li > span + span {
+	position: absolute;
+	right: 20%;
+}
+
+.session > .container > div > div > div > ul > li > span + span + span {
+	position: absolute;
+	right: 0;
+	display: inline-block;
+	width: 15%;
+	padding-left: 3%;
+	color: white;
+	background-color: #d9534f;/*<-offline. #4FFF4F; <-online*/
+}
+.session > .container > div > div > div > ul > li:last-child > span + span + span {
+	border-bottom-right-radius: 8px;
+	height: calc(100%);
+}
+.session > .container > div > div + div {
+	margin-top: 50px;
+}
+.session > .container > div > div + div > div {
+	width: 30%;
+	height: 50px;
+}
+.session > .container > div > div + div > div + div {
+	width: 100%;
+	height: auto;
+}
+.session > .container > div > div > div > textarea {
+	height: 240px;
+	resize: vertical;
+	margin-bottom: 10px;
+}
+/* END SESSION */

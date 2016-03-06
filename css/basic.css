@@ -1,0 +1,20 @@
+#logout {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 3;
+	/*border-radius: 0 0 0 7;*/
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+#back {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	/*border-radius: 0 0 0 7;*/
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
