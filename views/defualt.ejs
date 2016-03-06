@@ -2,13 +2,27 @@
 <head>
 	<% include partials/ejs/head.ejs %>
 	<link rel="stylesheet" href="css/basic.css">
+	<link rel="stylesheet" href="css/popup.css">
+	<script src="js/popup.js"></script>
+	<% if(type == 'editor') { %>
+		<link rel="stylesheet" href="css/editor.css">
+	<% } %>
 </head>
-<body>
-	<% if(type != 'login') { %>
+<body id="main">
+	<% if(type != 'login' && type != 'editor') { %>
 		<% include partials/html/logout.html %>
 	<% } %>
 	<% if(type == 'login') { %>
 		<% include partials/html/login.html %>
+	<% } %>
+	<% if(type == 'editor') { %>
+		<% include partials/student/editor.ejs %>
+	<% } %>
+	<% if(type == 'task') { %>
+		<% include partials/student/task.ejs %>
+	<% } %>
+	<% if(type == 'comment') { %>
+		<% include partials/ejs/comment.ejs %>
 	<% } %>
 	<% if(type == 'bad') { %>
 		<% include partials/html/bad.html %>

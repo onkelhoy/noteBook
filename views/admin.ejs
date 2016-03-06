@@ -14,11 +14,11 @@
 					<% if(teachers != 'error') { %>
 						<% for(var i = 0; i < teachers.length; i++) { %>
 							<li index=<%= teachers[i].id %>>
-								<button type="button" class="btn">Edit</button>
+								<button type="button" class="btn left">Edit</button>
 								<span class="name"><%= teachers[i].name %></span>
 								<span class="pass"><a href="javascript:void(0)" class="btn btn-link" pass="<%= teachers[i].password %>">Klicka för lösenord</a></span>
-								<a href="mailto:<%= teachers[i].mail %>?Subject=texbook%20-%20admin" class="name"><%= teachers[i].mail %></a>
-								<button type="button" class="btn">Remove</button>
+								<a href="mailto:<%= teachers[i].mail %>?Subject=texbook%20-%20admin" class="mail"><%= teachers[i].mail %></a>
+								<button type="button" class="btn right">Remove</button>
 							</li>
 						<% } %>
 					<% } else { %>
@@ -53,18 +53,24 @@
 	        </div>
 	        <div><!-- editMenu -->
 	        	<div class="form-group">
-	        		<label for="add_name">Namn</label>
-	        		<input id="add_name" class="form-control" type="text" placeholder="Henry Pap">
+	        		<label for="edit_name">Namn</label>
+	        		<input id="edit_name" class="form-control" type="text" placeholder="Henry Pap">
 	        	</div>
 	        	<div class="form-group">
-	        		<label for="add_mail">Namn</label>
-	        		<input id="add_mail" class="form-control" type="text" placeholder="henry@example.com">
+	        		<label for="edit_mail">Namn</label>
+	        		<input id="edit_mail" class="form-control" type="text" placeholder="henry@example.com">
 	        	</div>
-	        	<button type="button" class="btn btn-default" onclick="addTeacher()">Lägg till</button>
+	        	<div class="checkbox">
+					<label>
+						<input type="checkbox" id="edit_pass"> Nytt lösenord
+					</label>
+				</div>
+	        	<button type="button" class="btn btn-default" id="edit_btn">Lägg till</button>
 	        </div>
-	        <div id="confirm"><!-- confirmMenu -->
-	        	<p class="bg-warning">Vill du verkligen ta bort lärare <span></span></p>
-	        	<button type="button" class="btn btn-default" onclick="confirm()">Bekräfta</button>
+	        <div><!-- confirmMenu -->
+	        	<p class="bg-warning">Vill du verkligen ta bort lärare <span index="-1"></span></p>
+	        	<button type="button" id="confirm" class="btn btn-default">Bekräfta</button>
+	        	<button type="button" onclick="hidePop()" class="btn btn-default">Avbryt</button>
 	        </div>
 	    </div>
 	</div>

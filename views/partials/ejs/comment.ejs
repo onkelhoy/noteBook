@@ -1,0 +1,111 @@
+<link href='https://fonts.googleapis.com/css?family=Reenie+Beanie' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/comment.css">
+<div class="container">
+			<div class="sticky-note">
+				<div class="text">
+				<p><span class="student"><%= sessionuser.name %></span>s inlämmning på <span class="teacher"><%= session.teachername %></span>s uppgift "<span class="name"><%= session.name %></span>".</p>
+				<p><span class="words">285</span>/<span class="max">300</span> ord</p>
+				</div>
+				<img src="images/stickyNote.png" title="sticky note" alt="sticky note">
+			</div>
+	<div class="col-md-9 col-md-offset-3 col-sm-10 col-sm-offset-1">
+	<article>
+		<div class="spiral"></div>
+		<div class="notebook">
+			<hr>
+			<section class="content"><%= sessionuser.text %></section>
+		</div>
+	</article>
+	<section><!--Kanske kan lägga till för lärare att markera text senare-->
+		<h2>Kommentarer</h2>
+		<div class="comments col-md-8 col-md-offset-4"></div>
+		<form class="form-group"><!--add comment-->
+			<label for="comment">Lägg till en kommentar</label>
+			<textarea class="form-control" id="comment"></textarea>
+			<button type="button" class="btn btn-default addComment">Lägg till</button>
+		</form>
+	</section>
+	</div>
+</div>
+
+<div id="popup">
+    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
+        <button type="button" onclick="hidePop()" class="close" aria-label="Close"><i class="fa fa-times"></i></button>
+        <div><!-- errorMenu -->
+            <p class="bg-danger"></p>
+            <button class="btn btn-danger" onclick="hidePop()">Okay <i class="fa fa-frown-o"></i></button>
+        </div>
+    </div>
+</div>
+
+<script src="js/filter.js"></script>
+<script>
+	$(window).ready(function(){
+		var sessionuser = <%- JSON.stringify(sessionuser) %>;
+		var _session = <%- JSON.stringify(session) %>;
+		var cmData = sessionuser.comments;
+
+		var _comments = cmData.split("#");
+		if(_comments != ''){
+		for(var i = 0; i < _comments.length; i++){
+			var d = _comments[i].split('^');
+			var _name = sessionuser.name;
+			var _txt = _comments[i];
+
+			if(d.length > 1){ _name = d[0];  _txt = d[1]; }
+
+			var cmt = $('<div></div>')
+				.append($('<h3></h3>').text(_name))
+				.append($('<p></p>').text(_txt));
+			if(d.length <= 1) cmt.addClass('student');
+			$('.comments').append(cmt);
+		}}
+
+		$('.sticky-note').height($('.sticky-note > img').height());
+		$('.sticky-note').click(function(){
+			if($('.sticky-note').hasClass('sfront')){
+				$('.sticky-note').removeClass('sfront');
+			}
+			else {
+				$('.sticky-note').addClass('sfront');
+			}
+		});
+		$('body').click(function(e){
+			if (!$('.sticky-note').is(e.target)  && $('.sticky-note').has(e.target).length === 0){
+				$('.sticky-note').removeClass('sfront');
+			}
+		});
+		$('.addComment').click(function(){
+			var msg = $('#comment').val();//filter
+			if(textF(msg)){
+				var name = '<%= username %>';
+				var mail = '<%= mail %>';
+				var teacher = <%= teacher %>;
+
+				var add = (cmData != '' ? cmData + '#' : '') + (teacher == 1 ? name + '^': '') + msg;
+				$.ajax({
+					url: 'comment',
+					type: 'POST',
+					data: {
+						comment: add,
+						student: sessionuser.user,
+						session: _session.id
+					},
+					error: function(err){
+						showError('Kunde ej lägga till kommentar', 1);
+					},
+					success: function(data){
+						var cmt = $('<div></div>')
+							.append($('<h3></h3>').text(name))
+							.append($('<p></p>').text(msg));
+						if(teacher == 0) cmt.addClass('student');
+						$('.comments').append(cmt);
+					}
+				});
+			}
+			else {
+				showError('Kommentar innehåller felaktiga tecken', 1);
+			}
+		});
+	});
+</script>

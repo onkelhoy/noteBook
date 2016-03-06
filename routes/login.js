@@ -30,6 +30,7 @@
 						req.session.admin = rows[0].admin;
 						req.session.teacher = rows[0].teacher;
 						req.session.usn_id = rows[0].id;
+						req.session.mail = rows[0].mail;
 						req.session.username = user;
 						res.end('done');
 					}

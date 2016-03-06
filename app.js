@@ -10,12 +10,9 @@ var express = require('express'),
 // get the io
 module.exports = io;
 // CUSTOM MODULES
-var ioHandler = require('./routes/ioHandle'),
-	routes = require('./routes/index'),
+var routes = require('./routes/index'),
+	setup = require('./setup'),
 	alive = require('./routes/helpers/keepalive');
-
-// MODULE STARTS
-ioHandler.start(io);//could be done better
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

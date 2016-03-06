@@ -9,7 +9,7 @@
             <div class="form-group">
                 <label for="startTime">Start</label>
                 <div class='input-group date' id='startTime'>
-                    <input type='text' placeholder="ÅÅÅÅ-MM-DD NNNN" id="start" class="form-control" />
+                    <input type='text' placeholder="ÅÅÅÅ-MM-DD NNNN" id="start" class="form-control" readonly="readonly"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label for="endTime">Slut</label>
                 <div class='input-group date' id='endTime'>
-                    <input type='text' placeholder="ÅÅÅÅ-MM-DD NNNN" id="end" class="form-control" />
+                    <input type='text' placeholder="ÅÅÅÅ-MM-DD NNNN" id="end" class="form-control" readonly="readonly"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -27,19 +27,14 @@
             <div class="form-group">
                 <label for="classes">Välj Klass</label>
                 <div class="input-group">
-                    <input type="text" id="search" class="form-control"><!--  placeholder="Du kan även söka efter klass" -->
+                    <input type="text" class="form-control" id="tags" />
                     <div class="input-group-addon" onclick="toggleClasses()"><i class="fa fa-level-down"></i></div>
                 </div>
                 <ul id="classes" style="display:none;"></ul>
             </div>
             <div class="form-group">
-                <label for="choosenClasses">Valda klasser</label>
-                <input id="choosenClasses" class="form-control" type="text" value="" data-role="tagsinput" >
-                <p class="help-block">Bara klasser du själv har kan väljas, övriga kommer ignoreras</p>
-            </div>
-            <div class="form-group">
                 <div class="input-group">
-                    <div class="input-group-addon" onclick="toggleClasses()">Antal ord</div>
+                    <div class="input-group-addon">Antal ord</div>
                     <input type="text" id="wordcount" class="form-control" placeholder="300 - standard">
                 </div>
                 <p class="help-block">Detta är antal ord eleven kommer att ha på sig</p>
@@ -53,10 +48,12 @@
         <script type="text/javascript">
             $(function () {
                 $('#startTime').datetimepicker({
-                    locale: 'sv'
+                    locale: 'sv',
+                    ignoreReadonly: true
                 });
                 $('#endTime').datetimepicker({
-                    locale: 'sv'
+                    locale: 'sv',
+                    ignoreReadonly: true
                 });
             });
         </script>

@@ -1,8 +1,10 @@
 var connect = require('../helpers/getsql');
 var filter = require('../helpers/filter');
 var crypte = require('../helpers/crypte');
+var sessionIO = require('./sessionIO');
 
 module.exports = function(io){
+	sessionIO.start(io);
 	io.on('connection', function(client){
 		client.on('getsetup', setup);
 		client.on('getclasses', classes);
@@ -20,33 +22,111 @@ function addSession(data){
 	var client = this;
 	var sql = connect.getConnection();
 	if(sql != null){
-		var command = "INSERT INTO `session`(`name`, `task`, `wordcount`, `endTime`, `startTime`, `active`, `classes`, `teacher`) VALUES ('"+data.name+"','"+data.task+"','"+data.word+"','"+data.end+"','"+data.start+"','"+0+"','"+data.classes+"', '"+data.teacher+"')";
-		sql.query(command, function(err){
+		var command = "INSERT INTO `session`(`name`, `task`, `wordcount`, `endTime`, `startTime`, `active`, `classes`, `teacher`, `teachername`) VALUES ('"+data.name+"','"+data.task+"','"+data.word+"','"+data.end+"','"+data.start+"','"+0+"','"+data.classes+"', '"+data.teacher+"', '"+data.teachername+"')";
+		sql.query(command, function(err, row){
 			if(err){ client.emit('ans', {type: 'error', msg: 'Misslyckades att skapa session'});}
 			else {
 				client.emit('ans', {type: 'success', msg: 'Session skapad'});
+				data.sessionID = row.insertId;
 				runAtDate(data.start, data, function(data){
 					//if not already started then activate session
-					console.log(data.name + " är nu startad");
+					// console.log(data.name + " är nu startad");
 					activateSession(data);
+					addSessionToClasses(data.sessionID, data.classes.split(','));
 				});
 			}
 		});
 		sql.end();
 	} else { client.emit('sql-error') }
-
 }
+function addSessionToClasses(id, classes){//sessionid
+	var sql = connect.getConnection();
+	if(sql != null){
+		var ors = "";
+		for(var i = 0; i < classes.length; i++){
+			ors += "`id` = " + classes[i] + ((i != classes.length -1) ? " OR " : "");
+		}
+		var command = "SELECT `sessions`,`id` FROM `class` WHERE " + ors;
+		sql.query(command,
+		function(err, rows){
+			if(!err) {
+				for(var i = 0; i < rows.length; i++){
+					// var sess = "";
+					// if(rows[i].sessions != null && rows[i].sessions != 'undefined') {
+					// 	var ses = rows[i].sessions.split(",");
+					// 	var ok = true;
+					// 	for(var j = 0; j < ses.length; j++){
+					// 		if(ses[j] == id) ok = false;
+					// 	}
+					// 	sess = rows[i].sessions;
+					// 	if(ok){ sess += ","+id; }
+					// } else { sess = id; }
+					//updateClassb(rows[i].id, sess);
+					createSessionUsers(rows[i].id, id);
+				}
+			}
+			else {}//perhaps tell teacher or something..
+		});
+		sql.end();
+	}
+}
+function updateClassb(id, sessions){
+	var sql = connect.getConnection();
+	if(sql != null){
+		var command = "UPDATE `class` SET `sessions`='"+sessions+"' WHERE `id` = " + id;
+		sql.query(command);
+		sql.end();
+	}
+}
+
+function createSessionUsers(classID, sessionID){
+	var sql = connect.getConnection();
+	if(sql != null){
+		var command = "SELECT `name`,`mail`,`id`,`class` FROM `user` WHERE `class` = " + classID;
+		sql.query(command, function(err, rows){
+			if(!err){
+				for(var i = 0; i < rows.length; i++){
+					createSessionUser(rows[i], sessionID);
+				}
+			}
+		});
+		sql.end();
+	}
+}
+function createSessionUser(userData, sessionID){
+	var sql = connect.getConnection();
+	if(sql != null){
+		var command = "INSERT INTO `sessionuser`(`name`, `mail`, `session`, `user`, `class`) VALUES ('"+userData.name+"', '"+userData.mail+"','"+sessionID+"','"+userData.id+"','"+userData.class+"')";
+		sql.query(command, function(err){
+			if(!err){
+				//mail user
+			}
+		});
+		sql.end();
+	}
+}
+function deleteSessionUser(session){//session can have ORs etc..
+	var sql = connect.getConnection();
+	if(sql != null){
+		var command = "DELETE FROM `sessionuser` WHERE `session` = " + session;
+		sql.query(command);
+		sql.end();
+	}
+}
+
 
 function activateSession(data){
 	var sql = connect.getConnection();
 	if(sql != null){
-		var command = "UPDATE `session` SET `active`='1' WHERE `teacher`='"+data.teacher+"' AND `name`='"+data.name+"' AND `classes`='"+data.classes+"'";
+		var command = "UPDATE `session` SET `active`='1' WHERE `id`='"+data.sessionID+"'";
 		sql.query(command, function(err){
 			if(!err){
 				//create socket namespace
+				sessionIO.createNamespace(data.name, data.sessionID, data.teacher);
 				runAtDate(data.end, data, function(data){
 					//if not already started then activate session
-					console.log(data.name + " är nu avslutad");
+					// console.log(data.name + " är nu avslutad");
+					sessionIO.deleteNameSpace(data.name, data.sessionID);
 					diactivateSession(data);
 				});
 			}
@@ -57,17 +137,18 @@ function activateSession(data){
 function diactivateSession(data){
 	var sql = connect.getConnection();
 	if(sql != null){
-		var command = "UPDATE `session` SET `active`='2' WHERE `teacher`='"+data.teacher+"' AND `name`='"+data.name+"' AND `classes`='"+data.classes+"'";
+		var command = "UPDATE `session` SET `active`='2' WHERE `id`='"+data.sessionID+"'";
 		sql.query(command, function(err){
 			if(!err){
 				//remove socket namespace
 				var future = new Date();
-				//future.setDate(future.getDate() + 30); //30 days
-				future.setMinutes(future.getMinutes() + 5);
+				future.setDate(future.getDate() + 30); //30 days 
+				// future.setMinutes(future.getMinutes() + 5); //5 min
 
 				runAtDate(future, data, function(data){
 					//if not already started then activate session
-					console.log(data.name + " är nu bortagen");
+					// console.log(data.name + " är nu bortagen");
+					deleteSessionUser(data.sessionID);
 					removeSession(data);
 				});
 			}
@@ -78,7 +159,7 @@ function diactivateSession(data){
 function removeSession(data){
 	var sql = connect.getConnection();
 	if(sql != null){
-		var command = "DELETE FROM `session` WHERE `teacher`='"+data.teacher+"' AND `name`='"+data.name+"' AND `classes`='"+data.classes+"'";
+		var command = "DELETE FROM `session` WHERE `id`='"+data.sessionID+"'";
 		sql.query(command);
 		sql.end();
 	}
@@ -112,6 +193,13 @@ function deleteStudent(data){
 				}
 			});
 			sql.end();
+
+			var sql3 = connect.getConnection();
+			if(sql3 != null){
+				command = "DELETE FROM `sessionuser` WHERE `user` = " + data.id;
+				sql3.query(command);
+				sql3.end();
+			}
 		} else { client.emit('sql-error') }
 	}
 }
@@ -177,34 +265,16 @@ function setup(id){
 	var client = this;
 	var sql = connect.getConnection();
 	if(sql != null){
-		var command = "SELECT * FROM `user` WHERE `id` = '" + id + "'";
+		var command = "SELECT `name`,`id`,`startTime`,`endTime`,`active` FROM `session` WHERE `teacher` = '" + id + "'";
 		sql.query(command, function(err, rows){
-			if(err){ client.emit('ans', {type: 'error', msg: 'error'}); }
-			else if(rows.length == 0) { client.emit('ans', {type: 'error', msg: 'nothing to select'}); }
-			else { client.emit('setup', {sessions: getsessions(rows[0].sessions)}); }
+			if(err) client.emit('ans', {type: 'error', msg: 'error'});
+			else if(rows.length == 0) client.emit('ans', {type: 'error', msg: 'nothing to select'});
+			else client.emit('setup', {'sessions': rows});
 		});
 		sql.end();
-	} else { client.emit('sql-error') }
+	} else { client.emit('sql-error'); }
 }
 
-function getsessions(sessionIds){
-	if(sessionIds != null){
-		var command = "SELECT name,id FROM `session` WHERE ";
-		var arr = sessionIds.split(',');
-		for(var i = 0; i < arr.length; i++){
-			command += "id='"+arr[i]+"'" + ((i != arr.length - 1) ? " OR " : "");
-		}
-
-		var sql = connect.getConnection();
-		if(sql != null){
-			sql.query(command, function(err, rows){
-				if(!err) return rows;
-				else return null;
-			});
-			sql.end();
-		}
-	} return null;
-}
 function classesSimple(teacher){
 	var client = this;
 	if(teacher != null){
@@ -301,9 +371,9 @@ function getClassId(data, client){
 	}, 200);
 }
 
-function deleteClass(id){
-	var client = this;
-	var sql = connect.getConnection();
+function deleteClass(id){				// when deleting a class.. the users and sessionuser will be removed.. but
+	var client = this;					// if class has session it will still have class id.. this need to be fixed.. 
+	var sql = connect.getConnection();	// (first add session to class.. then when remove and remove class from session)
 	if(sql != null){
 		var command = "DELETE FROM `class` WHERE id='"+id+"'";
 		sql.query(command, function(err, rows){
@@ -321,5 +391,12 @@ function deleteClass(id){
 		var command = "DELETE FROM `user` WHERE class='"+id+"' AND `teacher` = '0'";
 		sql2.query(command);
 		sql2.end();
+	}
+
+	var sql3 = connect.getConnection();
+	if(sql3 != null){
+		command = "DELETE FROM `sessionuser` WHERE `class` = " + id;
+		sql3.query(command);
+		sql3.end();
 	}
 }

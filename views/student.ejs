@@ -7,7 +7,7 @@
 <body class="<%= status %>">
 	<% include partials/html/logout.html %>
 	<% if(status == 'home') { %>
-		<% include partials/student/home.html %>
+		<% include partials/student/home.ejs %>
 	<% } %>
 	
 	<script src="/socket.io/socket.io.js"></script>

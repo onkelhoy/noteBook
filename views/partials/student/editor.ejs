@@ -1,0 +1,28 @@
+
+<!-- <body id="main"> -->
+
+
+<script>
+	var WORDCOUNT = Number(<%= session.wordcount %>);
+	var session = <%- JSON.stringify(session); %>
+	var user = <%- JSON.stringify(sessionuser); %>
+
+	var TASK = session.task;
+	var TASKNAME = session.name;
+</script>
+
+<div id="info">
+	<!--<span class="time">Tid kvar<span></span>-->
+	<span><span class="statusinfo"></span></span><span class="save"></span> <span class="time"></span></span>
+	<button type="btn" class="btn btn-primary btn-xs">Spara</button>
+	<a href="task/<%= session.id %>" target="_blank" type="btn" class="btn btn-primary btn-xs">Se Uppgift</a>
+</div>
+<div class="grid-container">
+	<div class="grid-width-100">
+		<textarea id="editor"></textarea>
+	</div>
+</div>
+<script src="editor/ckeditor.js"></script>
+<script src="editor/editor.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/editor.js"></script>

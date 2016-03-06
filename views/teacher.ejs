@@ -6,14 +6,15 @@
 	<link rel="stylesheet" href="css/basic.css">
 	<% if(status == 'create') { %>
 		<link rel="stylesheet" href="css/tags.css">
+		<link rel="stylesheet" href="css/typeaheadjs.css">
 		<link rel="stylesheet" href="css/datepicker.css">
 
+		<script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
 		<script src="js/tags/tags_bootstrap.min.js"></script>
 		<script src="js/tags/tags_angular.min.js"></script>
 		<script src="js/calender/moment.js"></script>
 		<script src="js/calender/sv.js" charset="UTF-8"></script>
 		<script src="js/calender/datepicker.js"></script>
-		<script src="js/teacher/search.js"></script>
 		<script src="js/teacher/create.js"></script>
 		<script src="js/filter.js"></script>
 	<% } %>
@@ -32,12 +33,13 @@
 		<% include partials/teacher/create.html %>
 	<% } %>
 	<% if(status == 'session') { %>
-		<% include partials/teacher/session.html %>
+		<% include partials/teacher/session.ejs %>
 	<% } %>
 	
 	<script>
 		var ID = '<%= id %>';
 		var CLASSES = null;
+		var username = '<%= username %>';
 	</script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/popup.js"></script>

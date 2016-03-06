@@ -1,0 +1,48 @@
+<a href="/teacher" class="btn btn-default" id="back">Tillbaka</a>
+<div class="container">
+	<div class="col-sm-10 col-sm-offset-1">
+		<h1><%= session.name %></h1>
+		<div>
+		<h3>Klasser</h3>
+		<% for(var i = 0; i < classes.length; i++) { %>
+			<div class="clas row col-sm-10" index="<%= classes[i].id %>">
+				<header class="form-control"><%= classes[i].name %></header>
+				<ul></ul>
+			</div>
+		<% } %>
+		</div>
+		<div class="col-xs-12">
+			<div class="form-group">
+				<label>Total</label>
+				<input id="words" class="form-control col-xs-4" type="number" name="quantity">
+			</div>
+			<div class="form-group">
+				<label>Uppgift</label>
+				<textarea class="form-control"><%= session.task %></textarea>
+				<button class="btn btn-primary upd">Updatera</button>
+				<button class="btn btn-success pdf">Ladda ner PDF</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="popup">
+    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
+        <button type="button" onclick="hidePop()" class="close" aria-label="Close"><i class="fa fa-times"></i></button>
+        <div><!-- errorMenu -->
+            <p class="bg-danger"></p>
+            <button class="btn btn-danger" onclick="hidePop()">Okay <i class="fa fa-frown-o"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+	var session = <%- JSON.stringify(session) %>;
+	var classes = <%- JSON.stringify(classes) %>;
+	var students = <%- JSON.stringify(students) %>;
+</script>
+<link rel="stylesheet" href="css/popup.css">
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/teacher/session.js"></script>
+<script src="js/popup.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
+<script src="js/teacher/createPDF.js"></script>

@@ -1,0 +1,34 @@
+<div class="container">
+	<div class="row">
+		<% if(sessions.length == 0) { %>
+			<h1>Du har inga sessioner angivna</h1>
+		<% } else { %>
+			<script>console.log(<%-JSON.stringify(sessions)%>);</script>
+			<header class="col-sm-10 col-sm-offset-1"><h3>Aktuella</h3></header>
+			<ul class="col-sm-10 col-sm-offset-1">
+			<% for(var i = 0; i < sessions.length; i++) { %>
+				<% if(sessions[i].active == 1) { %>
+					<li index="<%= sessions[i].id %>">
+						<i class="fa fa-circle"></i>
+						<span class="name"><%= sessions[i].name %></span>
+						<span>Tid kvar: <span class="time" end="<%= sessions[i].endTime %>"></span></span>
+					</li>
+				<% } %>
+			<% } %>
+			</ul>
+
+			<header class="col-sm-10 col-sm-offset-1"><h3>Avslutade</h3></header>
+			<ul class="col-sm-10 col-sm-offset-1">
+			<% for(var i = 0; i < sessions.length; i++) { %>
+				<% if(sessions[i].active == 2) { %>
+					<li index="<%= sessions[i].id %>">
+						<i class="fa fa-circle text-muted"></i>
+						<span class="name"><%= sessions[i].name %></span>
+					</li>
+				<% } %>
+			<% } %>
+			</ul>
+		<% } %>
+	</div>
+</div>
+<script src="js/student/home.js"></script>

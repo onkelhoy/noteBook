@@ -8,7 +8,7 @@ exports.stext = function(text) {
 }
 
 exports.text = function(text) { //add in for special characters å,ä,ö.. etc
-	if(text.match(/[^\w\s\-\.\,åöä]/)){ // not valid
+	if(text.match(/[^\w\s\-\.\,åöäÖÅÄ?!]/)){ // not valid
 		return false;
 	}
 	else { // valid
